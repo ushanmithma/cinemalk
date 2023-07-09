@@ -1,0 +1,420 @@
+
+@import './variables';
+@import './media-queries';
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: $primary-font;
+	background-color: $light-color;
+	overflow-x: hidden;
+}
+
+p {
+	line-height: 1.5;
+}
+
+a {
+	text-decoration: none;
+	color: $secondary-color;
+	font-weight: 700;
+
+	&:hover {
+		color: $primary-color;
+		text-decoration: underline;
+	}
+}
+
+@keyframes expand {
+	from {
+		width: 0px;
+	}
+	to {
+		width: 250px;
+	}
+}
+
+::-moz-selection {
+	color: $light-color;
+	background: $secondary-color;
+}
+
+::selection {
+	color: $light-color;
+	background: $secondary-color;
+}
+
+header {
+
+	nav {
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		min-height: 70px;
+		background-color: $primary-color;
+
+		.logo {
+			height: 70px;
+			user-select: none;
+			
+			img {
+				height: inherit;
+			}
+		}
+
+		.toggle-logo {
+			display: none;
+		}
+
+		.search-box {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: nowrap;
+
+			.search-bg {
+				display: none;
+				margin-right: 1.2rem;
+				position: relative;
+
+				.search-items {
+					display: flex;
+					flex-direction: column;
+
+					input {
+						width: 250px;
+						font-size: 1.2rem;
+						line-height: 0;
+						padding: 8px 16px;
+						font-family: $secondary-font;
+						background-color: $light-color;
+						border: none;
+						border-radius: 1.2rem;
+
+						&:focus {
+							outline: none;
+						}
+
+						@include desktop {
+							padding: 4px 12px;
+						}
+					}
+
+					.search-result {
+						width: 100%;
+						position: absolute;
+						top: calc(calc(8px * 2) + 1.5rem);
+						background-color: $primary-color;
+						left: 0;
+						display: flex;
+						flex-direction: column;
+
+						@include desktop {
+							top: calc(calc(4px * 2) + 1.5rem);
+						}
+
+						a {
+							display: flex;
+							flex-direction: row;
+							flex-wrap: nowrap;
+							margin: 0.5rem;
+							transition: background 0.4s ease;
+
+							&:hover {
+
+								.title {
+
+									p {
+										text-decoration: underline;
+									}
+								}
+							}
+
+							.picture {
+								width: 70px;
+								height: calc(calc(345 / 230) * 70px);
+								border: 1px solid $accent-color;
+								background-size: cover;
+								background-position: center;
+								background-repeat: no-repeat;
+							}
+
+							.title {
+								margin-left: 0.5rem;
+								width: calc(100% - calc(calc(calc(0.5rem * 3) + 70px) + 2px));
+
+								p {
+									font-size: 0.9rem;
+									font-weight: 600;
+									color: $accent-color;
+
+									&:last-child {
+										font-size: 0.6rem;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+
+			.toggle-search-bg {
+				display: block;
+			}
+
+			button {
+				border: 0;
+				background: none;
+				color: $accent-color;
+
+				&:hover {
+					cursor: pointer;
+				}
+
+				&:focus {
+					outline: none;
+				}
+			}
+
+			#searchBtn {
+
+				@include desktop {
+					display: none;
+				}
+			}
+
+			#searchDesktop {
+				display: none;
+
+				@include desktop {
+					display: block;
+				}
+			}
+		}
+
+		.nav-links {
+			position: absolute;
+			top: 70px;
+			right: 0;
+			min-height: calc(100vh - 70px);
+			display: flex;
+			flex-direction: column;
+			justify-content: space-around;
+			align-items: center;
+			background-color: $primary-color;
+			width: 70%;
+			transform: translateX(100%);
+			transition: transform 0.4s ease-in-out;
+
+			@include desktop {
+				top: 0;
+				position: relative;
+				min-height: 70px;
+				flex-direction: row;
+				justify-content: space-around;
+				width: 50%;
+				transform: translateX(0%);
+			}
+
+			li {
+				list-style-type: none;
+
+				a {
+					padding: 3rem;
+					color: $accent-color;
+					text-decoration: none;
+					letter-spacing: 3px;
+					font-size: 1.2rem;
+					font-weight: 500;
+					transition: color 0.4s ease-in-out;
+
+					&:hover {
+						color: $secondary-color;
+					}
+
+					@include desktop {
+						padding: 0;
+						letter-spacing: 1px;
+					}
+				}
+			}
+		}
+
+		// Side navigation active class
+		.nav-active {
+			transform: translateX(0%);
+		}
+
+		.menu {
+
+			div {
+				width: 25px;
+				height: 3px;
+				background-color: $accent-color;
+				margin: 5px;
+				transition: all 0.3s ease;
+			}
+
+			@include desktop {
+				display: none;
+			}
+		}
+
+		// Menu toggle class
+		.toggle {
+
+			.line1 {
+				transform: rotate(-45deg) translate(-5px, 6px);
+			}
+
+			.line2 {
+				opacity: 0;
+			}
+
+			.line3 {
+				transform: rotate(45deg) translate(-5px, -6px);
+			}
+		}
+	}
+}
+
+footer {
+	background-color: $primary-color;
+	color: $accent-color;
+	display: grid;
+	grid-template-columns: 100%;
+	grid-template-rows: auto auto auto auto auto;
+
+	@include desktop {
+		grid-template-columns: repeat(4, 1fr);
+		grid-template-rows: auto auto;
+	}
+
+	.site-details, .navigations, .contact, .follow-us, .copyrghts {
+		padding: 1.5rem;
+		grid-column: 1 / 2;
+		grid-row: 1 / 2;
+
+		h2 {
+			font-size: 1.2rem;
+			margin-bottom: 1.5rem;
+		}
+	}
+
+	.site-details, .navigations, .follow-us {
+
+		ul {
+			list-style-type: none;
+
+			li {
+				line-height: 1.7;
+
+				a {
+					font-size: 0.9rem;
+					color: $accent-color;
+					font-weight: normal;
+				}
+			}
+		}
+	}
+
+	.site-details {
+		grid-row: 1 / 2;
+
+		@include desktop {
+			grid-column: 1 / 2;
+			grid-row: 1 / 2;
+		}
+	}
+
+	.navigations {
+		grid-row: 2 / 3;
+
+		@include desktop {
+			grid-column: 2 / 3;
+			grid-row: 1 / 2;
+		}
+	}
+
+	.contact {
+		grid-row: 3 / 4;
+
+		p {
+			margin-bottom: 0.5rem;
+		}
+
+		form {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: nowrap;
+
+			input {
+				width: 65%;
+                padding: 0.7rem;
+                border: none;
+
+                @include desktop {
+                	width: 65%;
+                }
+			}
+
+			button {
+				width: 35%;
+				background-color: $secondary-color;
+                border: none;
+                color: $accent-color;
+                display: inline-block;
+                padding: 0.7rem;
+                cursor: pointer;
+	            transition: background 0.4s ease;
+	            text-transform: uppercase;
+
+                @include desktop {
+                	width: 35%;
+                }
+			}
+		}
+
+		@include desktop {
+			grid-column: 3 / 4;
+			grid-row: 1 / 2;
+		}
+	}
+
+	.follow-us {
+		grid-row: 4 / 5;
+
+		ul {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+
+			li {
+				
+			}
+		}
+
+		@include desktop {
+			grid-column: 4 / 5;
+			grid-row: 1 / 2;
+		}
+	}
+
+	.copyrghts {
+		grid-row: 5 / 6;
+		user-select: none;
+
+		p {
+			text-align: center;
+			font-size: 0.9rem;
+		}
+
+		@include desktop {
+			grid-column: 1 / 5;
+			grid-row: 2 / 3;
+		}
+	}
+}
